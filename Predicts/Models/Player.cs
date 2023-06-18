@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Predicts.Models
 {
@@ -9,6 +10,7 @@ namespace Predicts.Models
         public string? Name { get; set; }
         public int Age { get; set; }
         public Team? CurrentTeam { get; set; }
+        [JsonIgnore]
         public int? CurrentTeamId { get; set; }
     }
 }

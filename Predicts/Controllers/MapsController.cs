@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Predicts.DTOs;
+using Predicts.Models;
 using Predicts.Services;
 
 namespace Predicts.Controllers
@@ -28,7 +30,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, maps);
         }
 
-        [HttpGet("id")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetMap(int id)
         {
             var map = await _predictsService.GetMapAsync(id);
@@ -41,7 +43,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, map);
         }
 
-        [HttpGet("matchId")]
+        [HttpGet("matchId/{matchId}")]
         public async Task<IActionResult> GetMapsFromMatch(int matchId)
         {
             var maps = await _predictsService.GetMapsFromMatchAsync(matchId);
@@ -52,6 +54,19 @@ namespace Predicts.Controllers
             }
 
             return StatusCode(StatusCodes.Status200OK, maps);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Map>> AddMap(MapDTO map)
+        {
+            var newMap = await _predictsService.AddMap(map);
+
+            if (newMap == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"{map.MapName} could not be added.");
+            }
+
+            return CreatedAtAction("AddMap", new { id = newMap.Id }, map);
         }
     }
 }

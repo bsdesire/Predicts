@@ -28,7 +28,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, matches);
         }
 
-        [HttpGet("id")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetMatch(int id)
         {
             var match = await _predictsService.GetMatchAsync(id);
@@ -41,7 +41,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, match);
         }
 
-        [HttpGet("tournamentId")]
+        [HttpGet("/tournamentId/{tournamentId}")]
         public async Task<IActionResult> GetMatchesFromTournament(int tournamentId)
         {
             var matches = await _predictsService.GetMatchesFromTournamentAsync(tournamentId);

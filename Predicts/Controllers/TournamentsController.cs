@@ -28,7 +28,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, tournaments);
         }
 
-        [HttpGet("id")]
+        [HttpGet("tournamentId/{id}")]
         public async Task<IActionResult> GetTournament(int id)
         {
             var tournament = await _predictsService.GetTournamentAsync(id);

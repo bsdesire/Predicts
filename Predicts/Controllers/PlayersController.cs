@@ -28,7 +28,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, players);
         }
 
-        [HttpGet("id")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetPlayer(int id)
         {
             var player = await _predictsService.GetPlayerAsync(id);
@@ -41,7 +41,7 @@ namespace Predicts.Controllers
             return StatusCode(StatusCodes.Status200OK, player);
         }
 
-        [HttpGet("teamId")]
+        [HttpGet("teamId/{teamId}")]
         public async Task<IActionResult> GetPlayersFromTeam(int teamId)
         {
             var players = await _predictsService.GetPlayersFromTeamAsync(teamId);

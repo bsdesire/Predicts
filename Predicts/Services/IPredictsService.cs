@@ -1,30 +1,32 @@
-﻿using Predicts.Models;
+﻿using Predicts.DTOs;
+using Predicts.Models;
 
 namespace Predicts.Services
 {
     public interface IPredictsService
     {
         // Player Services
-        Task<Player> GetPlayerAsync(int id);
-        Task<List<Player>> GetPlayersAsync();
-        Task<List<Player>> GetPlayersFromTeamAsync(int id);
+        Task<PlayerDTO> GetPlayerAsync(int id);
+        Task<List<PlayerDTO>> GetPlayersAsync();
+        Task<List<PlayerDTO>> GetPlayersFromTeamAsync(int id);
 
         // Team Services
-        Task<Team> GetTeamAsync(int id);
-        Task<List<Team>> GetTeamsAsync();
+        Task<TeamDTO> GetTeamAsync(int id);
+        Task<List<TeamDTO>> GetTeamsAsync();
 
         // Map Services
-        Task<Map> GetMapAsync(int id);
-        Task<List<Map>> GetMapsAsync();
-        Task<List<Map>> GetMapsFromMatchAsync(int id);
+        Task<MapDTO> GetMapAsync(int id);
+        Task<List<MapDTO>> GetMapsAsync();
+        Task<List<MapDTO>> GetMapsFromMatchAsync(int id);
+        Task<Map> AddMap(MapDTO map);
 
         // Match Services
-        Task<Match> GetMatchAsync(int id);
-        Task<List<Match>> GetMatchesAsync();
-        Task<List<Match>> GetMatchesFromTournamentAsync(int id);
+        Task<MatchDTO> GetMatchAsync(int id);
+        Task<List<MatchDTO>> GetMatchesAsync();
+        Task<List<MatchDTO>> GetMatchesFromTournamentAsync(int id);
 
         // Tournament Services
-        Task<Tournament> GetTournamentAsync(int id);
-        Task<List<Tournament>> GetTournamentsAsync();
+        Task<TournamentDTO> GetTournamentAsync(int id);
+        Task<List<TournamentDTO>> GetTournamentsAsync();
     }
 }
