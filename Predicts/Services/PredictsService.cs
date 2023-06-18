@@ -72,5 +72,107 @@ namespace Predicts.Services
                 return null;
             }
         }
+
+        public async Task<Map> GetMapAsync(int id)
+        {
+            try
+            {
+                return await _db.Maps.Include(t => t.Match).FirstOrDefaultAsync(m => m.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Map>> GetMapsAsync()
+        {
+            try
+            {
+                return await _db.Maps
+                    .Include(m => m.Match.Team1)
+                    .ThenInclude(t => t.Players)
+                    .Include(m => m.Match.Team2)
+                    .ThenInclude(t => t.Players)
+                    .IgnoreAutoIncludes()
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Map>> GetMapsFromMatchAsync(int id)
+        {
+            try
+            {
+                return await _db.Maps.Include(m => m.Match).Where(m => m.MatchId == id).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Match> GetMatchAsync(int id)
+        {
+            try
+            {
+                return await _db.Matches.Include(m => m.Maps).FirstOrDefaultAsync(m => m.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Match>> GetMatchesAsync()
+        {
+            try
+            {
+                return await _db.Matches.Include(m => m.Maps).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Match>> GetMatchesFromTournamentAsync(int id)
+        {
+            try
+            {
+                return await _db.Matches.Include(m => m.Maps).Where(m => m.TournamentId == id).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Tournament> GetTournamentAsync(int id)
+        {
+            try
+            {
+                return await _db.Tournaments.Include(t => t.Matches).FirstOrDefaultAsync(t => t.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Tournament>> GetTournamentsAsync()
+        {
+            try
+            {
+                return await _db.Tournaments.Include(t => t.Matches).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
